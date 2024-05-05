@@ -51,7 +51,7 @@ export default function Page() {
             </div>
 
             <div>
-                <h2 className="mb-4 text-lg font-mono">TransactionSummary + TransactionItem</h2>
+                <h2 className="mb-4 text-lg font-mono">Buttons</h2>
                 <hr className="mb-4 border-gray-200 dark:border-gray-800" />
                 <div className="space-x-4">
                     <Button>Hello</Button>
@@ -63,7 +63,25 @@ export default function Page() {
                 </div>
             </div>
 
-            
+            <div>
+                <h2 className="mb-4 text-lg font-mono">Forms</h2>
+                <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+                <div className="space-x-4">
+                    <div>
+                        <label className="text-gray-700 dark:text-gray-300 black mb-1">Your name</label>
+                        <input type="text" placeholder="Type something here!" className="w-full rounded-md shadow-sm border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-950" />
+                    </div>
+
+                    <div>
+                        <label className="text-gray-700 dark:text-gray-300 black mb-1">City</label>
+                        <select className="w-full rounded-md shadow-sm border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-950">
+                            <option>Warsaw</option>
+                            <option>Berlin</option>
+                            <option>London</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </main>
     ) 
 }
