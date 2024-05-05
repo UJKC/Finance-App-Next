@@ -80,6 +80,12 @@ export default function Page() {
                             <option>London</option>
                         </select>
                     </div>
+
+                    <div className="flex items-center">
+                        <input type="checkbox" className="rounded border-gray-300 text-gray-700 bg-white dark:bg-gray-950 dark:text-gray-500 shadow-sm" />
+                            
+                        <label className="text-gray-700 dark:text-gray-300 ml-2">City</label>
+                    </div>
                 </div>
             </div>
         </main>
