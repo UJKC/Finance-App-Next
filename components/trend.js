@@ -1,3 +1,6 @@
+import { useMemo } from "react"
+import { ArrowDownLeft, ArrowUpRight } from 'lucide-react';
+
 export default function Trend({type, amount, prevAmount}) {
     const colorClasses = {
         'Income': 'text-green-700 dark:text-green-300',
@@ -7,9 +10,11 @@ export default function Trend({type, amount, prevAmount}) {
     }
     
     const calPercentageChange = (amount, prevAmount) => {
-        if (prevAmount === 0) return 0
+        if (!prevAmount || !amount) return 0
         return((amount - prevAmount) / prevAmount) * 100
     }
+
+    const percentageChange = useMemo(() => calPercentageChange(amount, prevAmount).toFixed(0), [amount, prevAmount])
 
     const formatCurrency = (amount) => new Intl.NumberFormat('en-US', {style: 'currency', currency: 'EUR'}).format(amount)
 
@@ -17,6 +22,11 @@ export default function Trend({type, amount, prevAmount}) {
         <div className={`font-semibold ${colorClasses[type]}`}>{type}</div>
         <div className="font-semibold text-black dark:text-white mb-2">
             {amount ? formatCurrency(amount) : formatCurrency(0)}
+        </div>
+        <div className="flex space-x-1 items-center text-sm">
+            {percentageChange <= 0 && <ArrowDownLeft className="text-red-700 dark:text-red-300"/>}
+            {percentageChange > 0 && <ArrowUpRight className="text-green-700 dark:text-green-300"/>}
+            <div>{percentageChange}% vs last period</div>
         </div>
     </div>
 }
