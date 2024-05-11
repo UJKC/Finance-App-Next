@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { transactionSchema } from "@/lib/validation";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { purgeTransactionListCache } from "@/lib/actions";
 
 export default function TransactionForm({initialData}) {
     const {
@@ -24,6 +26,8 @@ export default function TransactionForm({initialData}) {
         created_at: new Date().toISOString().split('T')[0]
       }
     })
+    
+    const router = useRouter()
 
     const [isSaving, setSaving] = useState(false)
   
@@ -41,6 +45,8 @@ export default function TransactionForm({initialData}) {
                 created_at: `${data.created_at}T00:00:00`
             })
         });
+        await purgeTransactionListCache()
+        router.push('/dashboard')
       }
       finally {
         setSaving(false)
