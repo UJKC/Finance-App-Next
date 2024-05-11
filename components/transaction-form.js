@@ -6,9 +6,14 @@ import Select from "./select";
 import Input from "./input";
 import Button from "./button";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { transactionSchema } from "@/lib/validation";
 
 export default function TransactionForm() {
-    const { register, handleSubmit, watch, formState: { errors }, } = useForm({mode: "onTouched"})
+    const { register, handleSubmit, watch, formState: { errors }, } = useForm({
+        mode: "onTouched",
+        resolver: zodResolver(transactionSchema)
+    })
 
     const onSubmit = (data) => console.log(data)
 
