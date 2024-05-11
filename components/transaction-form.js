@@ -11,6 +11,7 @@ import { transactionSchema } from "@/lib/validation";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { purgeTransactionListCache } from "@/lib/actions";
+import FormError from "@/app/dashboard/components/formerror";
 
 export default function TransactionForm({initialData}) {
     const {
@@ -26,8 +27,6 @@ export default function TransactionForm({initialData}) {
         created_at: new Date().toISOString().split('T')[0]
       }
     })
-    
-    const router = useRouter()
 
     const [isSaving, setSaving] = useState(false)
   
@@ -46,7 +45,6 @@ export default function TransactionForm({initialData}) {
             })
         });
         await purgeTransactionListCache()
-        router.push('/dashboard')
       }
       finally {
         setSaving(false)
@@ -69,6 +67,7 @@ export default function TransactionForm({initialData}) {
               {type}
             </option>)}
           </Select>
+          <FormError error={errors.type} />
         </div>
   
         <div>
@@ -79,21 +78,25 @@ export default function TransactionForm({initialData}) {
               {category}
             </option>)}
           </Select>
+          <FormError error={errors.category} />
         </div>
   
         <div>
           <Label className="mb-1">Date</Label>
           <Input {...register("created_at")} />
+          <FormError error={errors.created_at} />
         </div>
   
         <div>
           <Label className="mb-1">Amount</Label>
           <Input type="number" {...register("amount")} />
+          <FormError error={errors.amount} />
         </div>
   
         <div className="col-span-1 md:col-span-2">
           <Label className="mb-1">Description</Label>
           <Input {...register("description")} />
+          <FormError error={errors.description} />
         </div>
       </div>
   
