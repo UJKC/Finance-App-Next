@@ -6,8 +6,13 @@ import Trendfallback from "./dashboard/components/trend-fallback";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
+import { createClient } from "@/lib/superbase/server";
 
-export default function Home() {
+export default async function Home() {
+  
+  const client = createClient()
+  console.log(await client.from('transaction').select())
+
   return (
     <>
       <section className="mb-8">
