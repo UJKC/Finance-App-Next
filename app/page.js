@@ -7,6 +7,8 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
 import { createClient } from "@/lib/superbase/server";
+import { ErrorBoundary } from "react-error-boundary";
+import { types } from "@/lib/consts";
 
 export default async function Home() {
   
@@ -30,18 +32,15 @@ export default async function Home() {
       </section>
 
       <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
-        <Suspense fallback={<Trendfallback />}>
-          <Trend type="Income" />
-        </Suspense>
-        <Suspense fallback={<Trendfallback />}>
-          <Trend type="Expense" />
-        </Suspense>
-        <Suspense fallback={<Trendfallback />}>
-          <Trend type="Saving" />
-        </Suspense>
-        <Suspense fallback={<Trendfallback />}>
-          <Trend type="Investment" />
-        </Suspense>
+        {types.map(type => 
+          <ErrorBoundary key={type} fallback={
+            <div className="text-red-500">Cannot fetch {type} data</div>
+          }>
+            <Suspense fallback={<Trendfallback />}>
+              <Trend type={type} />
+            </Suspense>
+          </ErrorBoundary>)
+        }
       </section>
       <Suspense fallback={<TransactionListFallback />}>
         <TransactionList />
