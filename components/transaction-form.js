@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { transactionSchema } from "@/lib/validation";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { purgeTransactionListCache } from "@/lib/actions";
+import { createTransaction, purgeTransactionListCache } from "@/lib/actions";
 import FormError from "@/app/dashboard/components/formerror";
 
 export default function TransactionForm({initialData}) {
@@ -34,17 +34,7 @@ export default function TransactionForm({initialData}) {
       setSaving(true)
       console.log(data)
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transactions`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ...data,
-                created_at: `${data.created_at}T00:00:00`
-            })
-        });
-        await purgeTransactionListCache()
+        await createTransaction(data)
       }
       finally {
         setSaving(false)
