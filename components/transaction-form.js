@@ -29,12 +29,17 @@ export default function TransactionForm({initialData}) {
     })
 
     const [isSaving, setSaving] = useState(false)
+    const [lastError, setLastError] = useState()
   
     const onSubmit = async (data) => {
       setSaving(true)
+      setLastError()
       console.log(data)
       try {
         await createTransaction(data)
+      }
+      catch (error) {
+        setLastError(error)
       }
       finally {
         setSaving(false)
@@ -91,6 +96,9 @@ export default function TransactionForm({initialData}) {
       </div>
   
       <div className="flex justify-between items-center">
+        <div>
+          {lastError && <FormError error={lastError} />}
+        </div>
         <Button type="submit" disabled={isSaving}>Save</Button>
       </div>
     </form>
