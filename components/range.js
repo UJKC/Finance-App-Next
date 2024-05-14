@@ -15,7 +15,7 @@ export default function range() {
     }
     return (
         <Select defaultValue={range} onChange={handleChange}>
-            <option value="today">Today</option>
+            <option value="today">Last 24 hours</option>
             <option value='Last7days'>Last 7 Days</option>
             <option value="last30days">Last 30 Days</option>
             <option value="Last12months">Last 12 Months</option>

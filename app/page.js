@@ -10,17 +10,13 @@ import { createClient } from "@/lib/superbase/server";
 import { ErrorBoundary } from "react-error-boundary";
 import { types } from "@/lib/consts";
 
-export default async function Home() {
-  
+export default async function Home({ searchParams }) {
+  const range = searchParams?.range ?? 'last30days'
   const client = createClient()
   console.log(await client.from('transaction').select())
 
   return (
     <>
-      <section className="mb-8">
-        <h1 className="text-4xl font-semibold">Summary</h1>
-      </section>
-
       <section className="mb-8 flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Summary</h1>
         <aside>
@@ -42,7 +38,7 @@ export default async function Home() {
             <div className="text-red-500">Cannot fetch {type} data</div>
           }>
             <Suspense fallback={<Trendfallback />}>
-              <Trend type={type} />
+              <Trend type={type} range={range}/>
             </Suspense>
           </ErrorBoundary>)
         }
