@@ -9,6 +9,7 @@ import { sizes, variants } from "@/lib/variants";
 import { createClient } from "@/lib/superbase/server";
 import { ErrorBoundary } from "react-error-boundary";
 import { types } from "@/lib/consts";
+import { Range } from '@/components/range'
 
 export default async function Home({ searchParams }) {
   const range = searchParams?.range ?? 'last30days'
@@ -20,7 +21,6 @@ export default async function Home({ searchParams }) {
       <section className="mb-8 flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Summary</h1>
         <aside>
-          <Range />
         </aside>
       </section>
 
