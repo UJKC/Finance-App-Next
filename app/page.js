@@ -44,7 +44,7 @@ export default async function Home({ searchParams }) {
         }
       </section>
       <Suspense fallback={<TransactionListFallback />}>
-        <TransactionList />
+        <TransactionList range={range}/>
       </Suspense>
     </>
   );
