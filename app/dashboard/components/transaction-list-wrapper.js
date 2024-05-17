@@ -1,7 +1,7 @@
-import { fetchTransaction } from "@/lib/actions"
+import { fetchTransactions } from "@/lib/actions"
 import TransactionList from "./transaction-list"
 
-export default function TransactionListWrapper({range}) {
-    const transaction = fetchTransaction(range)
-    return <TransactionList initialTransaction={transaction} key={range} range={range} />
+export default async function TransactionListWrapper({ range }) {
+  const transactions = await fetchTransactions(range)
+  return <TransactionList initialTransactions={transactions} key={range} range={range} />
 }
