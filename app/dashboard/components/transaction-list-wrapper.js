@@ -3,5 +3,5 @@ import TransactionList from "./transaction-list"
 
 export default function TransactionListWrapper({range}) {
     const transaction = fetchTransaction(range)
-    return <TransactionList initialTransaction={transaction} />
+    return <TransactionList initialTransaction={transaction} key={range} range={range} />
 }
